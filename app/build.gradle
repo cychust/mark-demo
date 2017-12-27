@@ -10,7 +10,7 @@ android {
         versionCode rootProject.android.versionCode
         versionName rootProject.android.versionName
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-    }gu't
+    }
     buildTypes {
         release {
             minifyEnabled false
@@ -43,5 +43,7 @@ dependencies {
     implementation deps.okhttp
     implementation deps.butterknife
     annotationProcessor deps.annotationProcessor
-
+    implementation deps.room_runtime
+    annotationProcessor deps.room_processer
+    implementation deps.guava
 }
