@@ -30,19 +30,9 @@ public interface TasksDataSource {
 
     void saveTask(@NonNull Task task);
 
-    void completeTask(@NonNull Task task);
-
-    void completeTask(@NonNull String taskId);
-
-    void activateTask(@NonNull Task task);
-
-    void activateTask(@NonNull String taskId);
-
-    void clearCompletedTasks();
-
-    void refreshTasks();
+    Task getTaskWithId(@NonNull String id);
 
     void deleteAllTasks();
 
-    void deleteTask(@android.support.annotation.NonNull String taskId);
+    void deleteTask(@NonNull String taskId);
 }

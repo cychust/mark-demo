@@ -5,6 +5,5 @@ package com.cyc.markdemo.mvp;
  */
 
 public interface BasePresenter {
-    void subscribe();
-    void unSubscribe();
+    void start();
 }

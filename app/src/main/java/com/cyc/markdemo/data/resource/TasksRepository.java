@@ -22,10 +22,10 @@ public class TasksRepository implements TasksDataSource {
     private final TasksDataSource mLocalTasksDataSource;
     // TODO private final TasksDataSource mRemoteTasksDataSource;
     Map<String, Task> mCachedTask;
-    boolean mCachedIsDirty = false;
+    // boolean mCachedIsDirty = false;
 
     private TasksRepository(@NonNull TasksDataSource localTasksDataSource) {
-        mLocalTasksDataSource = localTasksDataSource;
+        mLocalTasksDataSource = checkNotNull(localTasksDataSource);
     }
 
     public static TasksRepository getInstance(TasksDataSource localTasksDataSource) {
@@ -42,38 +42,75 @@ public class TasksRepository implements TasksDataSource {
     @Override
     public void getTasks(@NonNull LoadTasksCallback callback) {
         checkNotNull(callback);
-        if (mCachedTask!=null&&mCachedIsDirty){
+        if (mCachedTask!=null){
             callback.onTasksLoaded(new ArrayList<>(mCachedTask.values()));
-            return;
+        return;
         }
-        if (mCachedIsDirty){
-            return;
-        }else {
-                mLocalTasksDataSource.getTasks(new LoadTasksCallback() {
-                    @Override
-                    public void onTasksLoaded(List<Task> tasks) {
-                        refreshCache(tasks);
-                        callback.onTasksLoaded(new ArrayList<>(mCachedTask.values()));
-                    }
+        mLocalTasksDataSource.getTasks(new LoadTasksCallback() {
+            @Override
+            public void onTasksLoaded(List<Task> tasks) {
+                refreshCache(tasks);
+                callback.onTasksLoaded(new ArrayList<>(mCachedTask.values()));
+            }
 
-                    @Override
-                    public void onDataNotAvailable() {
-                        //Todo
-                    }
-                });
+            @Override
+            public void onDataNotAvailable() {
+
+            }
+        });
+    }
+
+    void refreshCache(List<Task> tasks){
+        if (mCachedTask==null){
+            mCachedTask=new LinkedHashMap<>();
+        }
+        mCachedTask.clear();
+        for (Task task:tasks){
+            mCachedTask.put(task.getId(),task);
         }
     }
 
     @Override
     public void getTask(@NonNull String taskId, @NonNull GetTaskCallback callback) {
+        checkNotNull(taskId);
+        checkNotNull(callback);
+        Task cacheTask=getTaskWithId(taskId);
+        if (cacheTask!=null){
+            callback.onTaskLoaded(cacheTask);
+            return;
+        }
+        mLocalTasksDataSource.getTask(taskId, new GetTaskCallback() {
+            @Override
+            public void onTaskLoaded(Task task) {
+                if (mCachedTask==null){
+                    mCachedTask=new LinkedHashMap<>();
+                }
+                mCachedTask.put(task.getId(),task);
+                callback.onTaskLoaded(task);
+            }
 
+            @Override
+            public void onDataNotAvailable() {
+
+            }
+        });
+    }
+
+    @Override
+    public Task getTaskWithId(@NonNull String taskId) {
+        checkNotNull(taskId);
+        if (mCachedTask==null||mCachedTask.isEmpty()){
+            return null;
+        }
+        else {
+            return mCachedTask.get(taskId);
+        }
     }
 
     @Override
     public void saveTask(@NonNull Task task) {
         checkNotNull(task);
         mLocalTasksDataSource.saveTask(task);
-
         if (mCachedTask==null){
             mCachedTask=new LinkedHashMap<>();
         }
@@ -81,68 +118,23 @@ public class TasksRepository implements TasksDataSource {
     }
 
     @Override
-    public void completeTask(@NonNull Task task) {
-        checkNotNull(task);
-        mLocalTasksDataSource.completeTask(task);
-        Task completedTask = new Task(task.getTitle(), task.getDescription(), task.getId(), true);
-        if (mCachedTask == null) {
-            mCachedTask = new LinkedHashMap<>();
-        }
-        mCachedTask.put(task.getId(), completedTask);
-    }
-
-    @Override
-    public void completeTask(@NonNull String taskId) {
-        checkNotNull(taskId);
-        completeTask(getTaskWithId(taskId));
-    }
-
-    @Override
-    public void activateTask(@NonNull Task task) {
-
-    }
-
-    @Override
-    public void activateTask(@NonNull String taskId) {
-
-    }
-
-    @Override
-    public void clearCompletedTasks() {
-
-    }
-
-    @Override
-    public void refreshTasks() {
-
-    }
-
-    @Override
     public void deleteAllTasks() {
-
+        mLocalTasksDataSource.deleteAllTasks();
+        if (mCachedTask==null){
+            mCachedTask=new LinkedHashMap<>();
+        }
+        mCachedTask.clear();
     }
 
     @Override
     public void deleteTask(@NonNull String taskId) {
+        checkNotNull(taskId);
+        mLocalTasksDataSource.deleteTask(taskId);
+        if (mCachedTask==null){
+            mCachedTask=new LinkedHashMap<>();
+            return;
+        }
+        mCachedTask.remove(taskId);
 
-    }
-    private void refreshCache(List<Task> tasks) {
-        if (mCachedTask == null) {
-            mCachedTask = new LinkedHashMap<>();
-        }
-        mCachedTask.clear();
-        for (Task task : tasks) {
-            mCachedTask.put(task.getId(), task);
-        }
-        mCachedIsDirty = false;
-    }
-    @Nullable
-    private Task getTaskWithId(@NonNull String id) {
-        checkNotNull(id);
-        if (mCachedTask == null || mCachedTask.isEmpty()) {
-            return null;
-        } else {
-            return mCachedTask.get(id);
-        }
     }
 }
