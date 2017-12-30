@@ -8,6 +8,7 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -18,6 +19,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.cyc.markdemo.R;
+import com.cyc.markdemo.addtask.AddTaskActivity;
 import com.cyc.markdemo.data.Task;
 import com.cyc.markdemo.data.resource.local.TaskDao;
 import com.cyc.markdemo.mvp.BasePresenter;
@@ -94,12 +96,12 @@ public class MainFragment extends Fragment implements MainContract.View {
     @Override
     public void showTasks(List<Task> tasks) {
         mMainAdapter.replace(tasks);
-
     }
 
     @Override
     public void showAddTask() {
-
+        Intent intent=new Intent(getActivity(), AddTaskActivity.class);
+        startActivity(intent);
     }
 
     @Override
@@ -108,6 +110,7 @@ public class MainFragment extends Fragment implements MainContract.View {
         Rect rect=new Rect();
         view.getGlobalVisibleRect(rect);
         Intent intent=new Intent(getActivity(), TaskDetailActivity.class);
+        Log.d("activity", "showTaskDetailUi: ");
         intent.setSourceBounds(rect);
         Bundle bundle=new Bundle();
         bundle.putString("taskId",taskId);

@@ -35,10 +35,10 @@ public class MainPresenter implements MainContract.Presenter {
         mTasksRepository.getTasks(new TasksDataSource.LoadTasksCallback() {
             @Override
             public void onTasksLoaded(List<Task> tasks) {
-                List<Task> taskList=new ArrayList<>();
+              /*  List<Task> taskList=new ArrayList<>();
                 for (Task task:tasks){
                     taskList.add(task);
-                }
+                }*/
                 proccessTasks(tasks);
             }
 

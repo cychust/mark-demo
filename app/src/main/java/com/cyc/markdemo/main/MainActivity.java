@@ -8,6 +8,8 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 
 import com.cyc.markdemo.R;
+import com.cyc.markdemo.Utils.ActivityUtil;
+import com.cyc.markdemo.Utils.Injection;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -25,6 +27,12 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         setSupportActionBar(mToolbar);
-
+        MainFragment mainFragment=(MainFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.contentFragment);
+        if (mainFragment==null){
+            mainFragment=MainFragment.newInstance();
+            ActivityUtil.addFragmentToActivity(getSupportFragmentManager(),mainFragment,R.id.contentFragment);
+        }
+        new MainPresenter(Injection.provideTaskRepository(getApplicationContext()),mainFragment);
     }
 }

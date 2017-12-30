@@ -4,8 +4,10 @@ import android.graphics.Point;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
+import android.util.Log;
 import android.view.Display;
 import android.view.View;
 import android.view.animation.AccelerateDecelerateInterpolator;
@@ -20,14 +22,16 @@ import com.cyc.markdemo.R;
 
 public class TaskDetailActivity extends AppCompatActivity {
 
-    public static final int DURATION = 300;
+    public static final int DURATION = 3000;
     private static final AccelerateDecelerateInterpolator DEFAULT_INTERPOLATOR = new AccelerateDecelerateInterpolator();
     private static final String SCALE_WIDTH = "SCALE_WIDTH";
     private static final String SCALE_HEIGHT = "SCALE_HEIGHT";
     private static final String TRANSITION_X = "TRANSITION_X";
     private static final String TRANSITION_Y = "TRANSITION_Y";
 
-    CardView mCardView;
+
+    private TextView mCardView;
+    private TextView mDescriptionTV;
     private int mScreenWidth;
     private int mScreenHeight;
     private Bundle mScaleBundle = new Bundle();
@@ -39,10 +43,12 @@ public class TaskDetailActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        setContentView(R.layout.task_detail_main);
+        mCardView=(TextView) findViewById(R.id.detail_title_tv);
+        mDescriptionTV=(TextView)findViewById(R.id.detail_description_tv);
+        initial();
         getScreenSize();
         getBundleInfo();
-        initial();
         runEnterAinim();
     }
 
@@ -53,15 +59,16 @@ public class TaskDetailActivity extends AppCompatActivity {
     }
 
     private void initial(){
-        mCardView=(CardView) getLayoutInflater().inflate(R.layout.card_item_main,null,false);
+       // mCardView=(CardView) getLayoutInflater().inflate(R.layout.card_item_main,null,false);
         mRect=getIntent().getSourceBounds();
         mTaskId=getIntent().getExtras().getString("taskId");
         mOriginHeight=mRect.bottom-mRect.top;
         mOriginWidth=mRect.right-mRect.left;
         FrameLayout.LayoutParams layoutParams=new FrameLayout.LayoutParams(mOriginWidth,mOriginHeight);
         layoutParams.setMargins(mRect.left,mRect.bottom-getStatusBarHeight(),mRect.right,mRect.bottom);
+        Log.d("initial", "initial: en");
         mCardView.setLayoutParams(layoutParams);
-        TextView textView=mCardView.findViewById(R.id.title_tv);
+       // TextView textView=mCardView.findViewById(R.id.title_tv);
         //todo textView
 
     }
@@ -69,12 +76,14 @@ public class TaskDetailActivity extends AppCompatActivity {
         mCardView.animate()
                 .setInterpolator(DEFAULT_INTERPOLATOR)
                 .setDuration(DURATION)
-                .scaleX(mScaleBundle.getFloat("x"))
-                .scaleY(mScaleBundle.getFloat("y"))
-                .translationX(mTransitionBundle.getFloat("x"))
-                .translationY(mTransitionBundle.getFloat("y"))
+                .scaleX(mScaleBundle.getFloat(SCALE_WIDTH))
+                .scaleY(mScaleBundle.getFloat(SCALE_HEIGHT))
+                .translationX(mTransitionBundle.getFloat(TRANSITION_X))
+                .translationY(mTransitionBundle.getFloat(TRANSITION_Y))
                 .start();
-        mCardView.setVisibility(View.GONE);
+        Log.d("run", "runEnterAinim: start");
+        mCardView.setVisibility(View.VISIBLE);
+        mDescriptionTV.setVisibility(View.VISIBLE);
 
     }
     private void runExitAinim(){
@@ -89,14 +98,17 @@ public class TaskDetailActivity extends AppCompatActivity {
     }
     private void getBundleInfo(){
         if (mCardView.getWidth() >=mCardView.getHeight()) {
+            Log.d("bundle", "getBundleInfo: "+mCardView.getWidth()+mCardView.getHeight());
             mScaleBundle.putFloat(SCALE_WIDTH, (float) mScreenWidth / mOriginWidth);
             mScaleBundle.putFloat(SCALE_HEIGHT, (float) mCardView.getHeight() / mOriginHeight);
         } else {
+            Log.d("bundle", "getBundleInfo: "+mCardView.getWidth()+mCardView.getHeight());
             mScaleBundle.putFloat(SCALE_WIDTH, (float) mCardView.getWidth() / mOriginWidth);
             mScaleBundle.putFloat(SCALE_HEIGHT, (float) mScreenHeight / mOriginHeight);
         }
-        mTransitionBundle.putFloat("x",mScreenWidth/2-(mRect.left+(mRect.right-mRect.left)/2));
-        mTransitionBundle.putFloat("y",mScreenHeight/2-(mRect.top+(mRect.bottom-mRect.top)/2));
+        mTransitionBundle.putFloat(TRANSITION_X,mScreenWidth/2-(mRect.left+(mRect.right-mRect.left)/2));
+        mTransitionBundle.putFloat(TRANSITION_Y,mScreenHeight/2-(mRect.top+(mRect.bottom-mRect.top)/2));
+        Log.d("bundle", "getBundleInfo: "+mCardView.getWidth()+mCardView.getHeight());
     }
     private int getStatusBarHeight() {
         //获取status_bar_height资源的ID

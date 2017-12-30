@@ -19,7 +19,7 @@ public abstract class TodoDatabase extends RoomDatabase {
 
     private static final Object sLock = new Object();
 
-    private static TodoDatabase getInstance(Context context) {
+    public static TodoDatabase getInstance(Context context) {
         synchronized (sLock) {
             if (INSTANCE == null) {
                 INSTANCE = Room.databaseBuilder(context.getApplicationContext(),

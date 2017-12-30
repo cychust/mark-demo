@@ -1,6 +1,7 @@
 package com.cyc.markdemo.taskdetail;
 
-import io.reactivex.annotations.Nullable;
+
+import android.support.annotation.Nullable;
 
 /**
  * Created by cyc20 on 2017/12/27.
@@ -18,14 +19,9 @@ public class TaskDetailPresenter implements TaskDetailContract.Presenter {
         this.taskId=taskId;
         mView.setPresenter(this);
     }
-    @Override
-    public void subscribe() {
-
-    }
 
     @Override
-    public void unSubscribe() {
+    public void start() {
 
     }
-
 }

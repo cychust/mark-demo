@@ -33,10 +33,6 @@ public final class Task {
     @ColumnInfo(name = "description")
     private final String mDescription;
 
-    @Ignore
-    public Task(@Nullable String title, @Nullable String description) {
-        this(title, description, UUID.randomUUID().toString(), false);
-    }
 
     /**
      * Use this constructor to create an active Task if the Task already has an id (copy of another
@@ -46,10 +42,7 @@ public final class Task {
      * @param description description of the task
      * @param id          id of the task
      */
-    @Ignore
-    public Task(@android.support.annotation.Nullable String title, @android.support.annotation.Nullable String description, @android.support.annotation.NonNull String id) {
-        this(title, description, id, false);
-    }
+
 
     /**
      * Use this constructor to create a new completed Task.
@@ -59,8 +52,8 @@ public final class Task {
      * @param completed   true if the task is completed, false if it's active
      */
     @Ignore
-    public Task(@android.support.annotation.Nullable String title, @android.support.annotation.Nullable String description, boolean completed) {
-        this(title, description, UUID.randomUUID().toString(), completed);
+    public Task(@android.support.annotation.Nullable String title, @android.support.annotation.Nullable String description) {
+        this(title, description, UUID.randomUUID().toString());
     }
 
     /**
@@ -73,7 +66,7 @@ public final class Task {
      * @param completed   true if the task is completed, false if it's active
      */
     public Task(@android.support.annotation.Nullable String title, @android.support.annotation.Nullable String description,
-                @android.support.annotation.NonNull String id, boolean completed) {
+                @android.support.annotation.NonNull String id) {
         mId = id;
         mTitle = title;
         mDescription = description;

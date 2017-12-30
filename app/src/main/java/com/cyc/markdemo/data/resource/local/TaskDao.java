@@ -65,6 +65,5 @@ public interface TaskDao {
      *
      * @return the number of tasks deleted.
      */
-    @Query("DELETE FROM Tasks WHERE completed = 1")
-    int deleteCompletedTasks();
+
 }
