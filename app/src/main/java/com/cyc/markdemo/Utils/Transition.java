@@ -25,7 +25,7 @@ public class Transition {
      * @param options Transition options, using {@link TransitionOptions#makeTransitionOptions(Activity, View...)}
      *                to build your options
      */
-    public static void startActivity(Intent intent,TransitionOptions options) {
+    public static void startActivity(Intent intent, TransitionOptions options) {
         options.update();
         intent.putParcelableArrayListExtra(EASY_TRANSITION_OPTIONS, options.getAttrs());
         Activity activity = options.getActivity();

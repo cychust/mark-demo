@@ -176,7 +176,6 @@ public class TaskLocalDataResource  implements TasksDataSource{
                 mTasksDao.deleteTasks();
             }
         };
-
         mAppExecutors.diskIO().execute(deleteRunnable);
     }
 
@@ -188,7 +187,6 @@ public class TaskLocalDataResource  implements TasksDataSource{
                 mTasksDao.deleteTaskById(taskId);
             }
         };
-
         mAppExecutors.diskIO().execute(deleteRunnable);
     }
 

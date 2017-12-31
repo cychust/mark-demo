@@ -8,14 +8,19 @@ import com.cyc.markdemo.mvp.BaseView;
  */
 
 public class AddTaskContract {
-    interface View extends BaseView<Presenter>{
+    interface View extends BaseView<Presenter> {
         void setTitle(String title);
+
         void setDescription(String description);
+
         void showError();
+
         void showTaskList();
     }
-    interface Presenter extends BasePresenter{
-        void saveTask(String title,String description);
+
+    interface Presenter extends BasePresenter {
+        void saveTask(String title, String description);
+
         void populateTask();
     }
 }

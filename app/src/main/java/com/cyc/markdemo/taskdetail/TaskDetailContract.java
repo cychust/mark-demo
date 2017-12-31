@@ -8,13 +8,17 @@ import com.cyc.markdemo.mvp.BaseView;
  */
 
 public interface TaskDetailContract {
-    interface View extends BaseView<Presenter>{
+    interface View extends BaseView<Presenter> {
         void deleteTask(String taskId);
+
         void showAddEditTask(String taskId);
-        void showTaskUi(String title,String description);
+
+        void showTaskUi(String title, String description);
     }
-    interface Presenter extends BasePresenter{
+
+    interface Presenter extends BasePresenter {
         void showAddEditTask();
+
         void deleteTask();
     }
 

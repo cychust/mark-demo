@@ -39,14 +39,14 @@ import static com.google.common.base.Preconditions.checkNotNull;
 public class MainFragment extends Fragment implements MainContract.View {
 
     private AppBarLayout mAppBarLayout;
-    private MainPresenter mPresenter;
+    private MainContract.Presenter mPresenter;
 
     private MainAdapter mMainAdapter;
 
     ItemClickListener mItemClickListener = new ItemClickListener() {
         @Override
         public void onClick(Task clickedTask, View view) {
-            mPresenter.openTaskDetails(clickedTask,view);
+            mPresenter.openTaskDetails(clickedTask, view);
 
         }
     };
@@ -75,7 +75,7 @@ public class MainFragment extends Fragment implements MainContract.View {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        View rootView = inflater.inflate(R.layout.frag_main, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_main, container, false);
         ListView listView = rootView.findViewById(R.id.list_view);
 
         listView.setAdapter(mMainAdapter);
@@ -93,7 +93,7 @@ public class MainFragment extends Fragment implements MainContract.View {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case R.id.deleteAll:
                 mPresenter.deleteAll();
         }
@@ -103,13 +103,13 @@ public class MainFragment extends Fragment implements MainContract.View {
     @Override
     public void deleteAll() {
         mMainAdapter.replace(new ArrayList<>(0));
-        Snackbar.make(getView(),"All Tasks delete successfully",Snackbar.LENGTH_SHORT)
+        Snackbar.make(getView(), "All Tasks delete successfully", Snackbar.LENGTH_SHORT)
                 .show();
     }
 
     @Override
     public void setPresenter(MainPresenter presenter) {
-        mPresenter=presenter;
+        mPresenter = presenter;
     }
 
     @Override
@@ -120,25 +120,25 @@ public class MainFragment extends Fragment implements MainContract.View {
 
     @Override
     public void showAddTask() {
-        Intent intent=new Intent(getActivity(), AddTaskActivity.class);
+        Intent intent = new Intent(getActivity(), AddTaskActivity.class);
         startActivity(intent);
     }
 
     @Override
-    public void showTaskDetailUi(String taskId,View view) {
+    public void showTaskDetailUi(String taskId, View view) {
         //todo Intent intent=new Intent(getContext(),);
-        Rect rect=new Rect();
+        Rect rect = new Rect();
         view.getGlobalVisibleRect(rect);
-        Intent intent=new Intent(getActivity(), TaskDetailActivityTest.class);
+        Intent intent = new Intent(getActivity(), TaskDetailActivityTest.class);
         Log.d("activity", "showTaskDetailUi: ");
         intent.setSourceBounds(rect);
-        Bundle bundle=new Bundle();
-        bundle.putString("taskId",taskId);
+        Bundle bundle = new Bundle();
+        bundle.putString("taskId", taskId);
         intent.putExtras(bundle);
-        TransitionOptions options=
-                TransitionOptions.makeTransitionOptions(getActivity(),view);
-        Transition.startActivity(intent,options);
-      // startActivity(intent);
+        TransitionOptions options =
+                TransitionOptions.makeTransitionOptions(getActivity(), view);
+        Transition.startActivity(intent, options);
+        // startActivity(intent);
     }
 
     public interface ItemClickListener {
@@ -178,19 +178,21 @@ public class MainFragment extends Fragment implements MainContract.View {
             View rootView = view;
             if (rootView == null) {
                 LayoutInflater inflater = LayoutInflater.from(viewGroup.getContext());
-                rootView = inflater.inflate(R.layout.card_item_main, viewGroup, false);
+                rootView = inflater.inflate(R.layout.item_cardview_main, viewGroup, false);
 
             }
             final Task task = (Task) getItem(i);
             TextView titleTv = rootView.findViewById(R.id.title_tv);
             titleTv.setText(task.getTitle());
-            rootView.setOnClickListener(view1 -> mItemClickListener.onClick(task,view1));
+            rootView.setOnClickListener(view1 -> mItemClickListener.onClick(task, view1));
             return rootView;
 
         }
-        public void replace(List<Task> tasks){
-           // mTasks=checkNotNull(tasks);
-            mTasks=tasks;
+
+        public void replace(List<Task> tasks) {
+            // mTasks=checkNotNull(tasks);
+            mTasks.clear();
+            mTasks.addAll(tasks);
             notifyDataSetChanged();
         }
     }

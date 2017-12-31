@@ -21,11 +21,12 @@ public class TaskDetailPresenter implements TaskDetailContract.Presenter {
 
     @Nullable
     private String taskId;
-    public TaskDetailPresenter(@Nullable String taskId, TasksRepository tasksRepository, TaskDetailContract.View view){
+
+    public TaskDetailPresenter(@Nullable String taskId, TasksRepository tasksRepository, TaskDetailContract.View view) {
         //TODO:
-        this.taskId=taskId;
-        this.mTasksRepository=checkNotNull(tasksRepository);
-        mView=view;
+        this.taskId = taskId;
+        this.mTasksRepository = checkNotNull(tasksRepository);
+        mView = view;
         mView.setPresenter(this);
     }
 
@@ -34,7 +35,7 @@ public class TaskDetailPresenter implements TaskDetailContract.Presenter {
         mTasksRepository.getTask(taskId, new TasksDataSource.GetTaskCallback() {
             @Override
             public void onTaskLoaded(Task task) {
-                mView.showTaskUi(task.getTitle(),task.getDescription());
+                mView.showTaskUi(task.getTitle(), task.getDescription());
             }
 
             @Override

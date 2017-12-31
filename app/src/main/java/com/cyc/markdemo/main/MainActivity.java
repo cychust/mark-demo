@@ -27,18 +27,18 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         setSupportActionBar(mToolbar);
-        ActionBar actionBar=getSupportActionBar();
-        if (actionBar!=null){
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
             actionBar.setDisplayShowHomeEnabled(true);
-           // actionBar.setDisplayHomeAsUpEnabled(true);
+            // actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setTitle("ALL");
         }
-        MainFragment mainFragment=(MainFragment) getSupportFragmentManager()
+        MainFragment mainFragment = (MainFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.contentFragment);
-        if (mainFragment==null){
-            mainFragment=MainFragment.newInstance();
-            ActivityUtil.addFragmentToActivity(getSupportFragmentManager(),mainFragment,R.id.contentFragment);
+        if (mainFragment == null) {
+            mainFragment = MainFragment.newInstance();
+            ActivityUtil.addFragmentToActivity(getSupportFragmentManager(), mainFragment, R.id.contentFragment);
         }
-        new MainPresenter(Injection.provideTaskRepository(getApplicationContext()),mainFragment);
+        new MainPresenter(Injection.provideTaskRepository(getApplicationContext()), mainFragment);
     }
 }

@@ -14,9 +14,9 @@ import static com.google.common.base.Preconditions.checkNotNull;
  */
 
 public class Injection {
-    public static TasksRepository provideTaskRepository(@NonNull Context context){
+    public static TasksRepository provideTaskRepository(@NonNull Context context) {
         checkNotNull(context);
-        TodoDatabase database=TodoDatabase.getInstance(context);
-        return TasksRepository.getInstance(TaskLocalDataResource.getInstance(new AppExecutors(),database.taskDao()));
+        TodoDatabase database = TodoDatabase.getInstance(context);
+        return TasksRepository.getInstance(TaskLocalDataResource.getInstance(new AppExecutors(), database.taskDao()));
     }
 }

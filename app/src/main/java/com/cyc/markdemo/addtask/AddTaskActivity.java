@@ -21,27 +21,29 @@ public class AddTaskActivity extends AppCompatActivity {
     private AddTaskPresenter mAddTaskPresenter;
     private AppBarLayout mAppBarLayout;
     private ActionBar mActionBar;
-    public AddTaskActivity() {
-        super();
-    }
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar=findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        mActionBar=getSupportActionBar();
+        mActionBar = getSupportActionBar();
         mActionBar.setDisplayHomeAsUpEnabled(true);
         mActionBar.setDisplayShowHomeEnabled(true);
-        AddTaskFragment addTaskFragment=(AddTaskFragment)getSupportFragmentManager().findFragmentById(R.id.contentFragment);
-        String taskId=getIntent().getStringExtra("taskId");
-        if (addTaskFragment==null){
-            addTaskFragment=AddTaskFragment.newInstance();
-            ActivityUtil.addFragmentToActivity(getSupportFragmentManager(),addTaskFragment,R.id.contentFragment);
+        AddTaskFragment addTaskFragment = (AddTaskFragment) getSupportFragmentManager().findFragmentById(R.id.contentFragment);
+        String taskId = getIntent().getStringExtra("taskId");
+        if (addTaskFragment == null) {
+            addTaskFragment = AddTaskFragment.newInstance();
+            ActivityUtil.addFragmentToActivity(getSupportFragmentManager(), addTaskFragment, R.id.contentFragment);
         }
-        mAddTaskPresenter=new AddTaskPresenter(taskId
-        , Injection.provideTaskRepository(getApplicationContext()),
+        mAddTaskPresenter = new AddTaskPresenter(taskId
+                , Injection.provideTaskRepository(getApplicationContext()),
                 addTaskFragment);
+    }
+
+    public AddTaskActivity() {
+        super();
     }
 
 

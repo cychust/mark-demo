@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.TextInputEditText;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,7 +11,6 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 
 import com.cyc.markdemo.R;
-import com.cyc.markdemo.Utils.Injection;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -31,18 +29,14 @@ public class AddTaskFragment extends Fragment implements AddTaskContract.View {
     private EditText mDescriptionEditText;
     private AddTaskContract.Presenter mPresenter;
 
-    public AddTaskFragment() {
-
-    }
-
-    public static AddTaskFragment newInstance() {
-        return new AddTaskFragment();
-    }
-
+    @Nullable
     @Override
-    public void onResume() {
-        super.onResume();
-        mPresenter.start();
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View rootView = inflater.inflate(R.layout.fragment_addtask_main, container, false);
+        mTitleEditText = rootView.findViewById(R.id.title_input_edit);
+        mDescriptionEditText = rootView.findViewById(R.id.description_input_edit);
+        setHasOptionsMenu(true);
+        return rootView;
     }
 
     @Override
@@ -58,14 +52,18 @@ public class AddTaskFragment extends Fragment implements AddTaskContract.View {
         });
     }
 
-    @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.add_frag_main, container, false);
-        mTitleEditText = rootView.findViewById(R.id.title_input_edit);
-        mDescriptionEditText = rootView.findViewById(R.id.description_input_edit);
-        setHasOptionsMenu(true);
-        return rootView;
+    public void onResume() {
+        super.onResume();
+        mPresenter.start();
+    }
+
+    public AddTaskFragment() {
+
+    }
+
+    public static AddTaskFragment newInstance() {
+        return new AddTaskFragment();
     }
 
     @Override
