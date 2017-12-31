@@ -17,10 +17,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".taskdetail.TaskDetailActivity"
-            android:theme="@style/AppTheme.AnimeDetail">
-
-        </activity>
         <activity android:name=".taskdetail.TaskDetailActivityTest"
             android:theme="@style/Theme.AppCompat.NoActionBar">
 

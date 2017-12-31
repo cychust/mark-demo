@@ -1,6 +1,5 @@
 package com.cyc.markdemo.main;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Rect;
 import android.os.Bundle;
@@ -10,7 +9,6 @@ import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -27,9 +25,6 @@ import com.cyc.markdemo.Utils.Transition;
 import com.cyc.markdemo.Utils.TransitionOptions;
 import com.cyc.markdemo.addtask.AddTaskActivity;
 import com.cyc.markdemo.data.Task;
-import com.cyc.markdemo.data.resource.local.TaskDao;
-import com.cyc.markdemo.mvp.BasePresenter;
-import com.cyc.markdemo.taskdetail.TaskDetailActivity;
 import com.cyc.markdemo.taskdetail.TaskDetailActivityTest;
 
 import java.util.ArrayList;
