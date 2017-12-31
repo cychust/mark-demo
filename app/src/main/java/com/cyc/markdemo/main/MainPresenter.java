@@ -72,4 +72,10 @@ public class MainPresenter implements MainContract.Presenter {
         checkNotNull(clickedTask,"clickedTask cannot be null");
         mView.showTaskDetailUi(clickedTask.getId(),view);
     }
+
+    @Override
+    public void deleteAll() {
+        mTasksRepository.deleteAllTasks();
+        mView.deleteAll();
+    }
 }

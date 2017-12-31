@@ -21,6 +21,10 @@
             android:theme="@style/AppTheme.AnimeDetail">
 
         </activity>
+        <activity android:name=".taskdetail.TaskDetailActivityTest"
+            android:theme="@style/Theme.AppCompat.NoActionBar">
+
+        </activity>
         <activity android:name=".addtask.AddTaskActivity"
             android:theme="@style/Theme.AppCompat.NoActionBar">
 

@@ -3,13 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/todo"
-        android:title="todo"
-        app:showAsAction="never" />
-    <item
-        android:title="todo"
-        app:showAsAction="never" />
-    <item
-        android:title="todo"
+        android:id="@+id/deleteAll"
+        android:title="delete all"
         app:showAsAction="never" />
 </menu>

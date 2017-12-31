@@ -21,6 +21,8 @@ public class MainContract {
 
         void showAddTask();
 
+        void deleteAll();
+
         void showTaskDetailUi(String taskId, android.view.View view);
     }
 
@@ -30,5 +32,7 @@ public class MainContract {
         void addNewTask();
 
         void openTaskDetails(Task clickedTask, android.view.View view);
+
+        void deleteAll();
     }
 }

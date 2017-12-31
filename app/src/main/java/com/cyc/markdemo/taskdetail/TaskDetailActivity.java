@@ -44,7 +44,7 @@ public class TaskDetailActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.task_detail_main);
-        mCardView=(TextView) findViewById(R.id.detail_title_tv);
+        mCardView=(TextView) findViewById(R.id.card_view );
         mDescriptionTV=(TextView)findViewById(R.id.detail_description_tv);
         initial();
         getScreenSize();
