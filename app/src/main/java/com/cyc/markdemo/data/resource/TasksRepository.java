@@ -19,6 +19,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
 
 public class TasksRepository implements TasksDataSource {
     private static TasksRepository INSTANCE = null;
+    public static int LoginStatus = 0;
     private final TasksDataSource mLocalTasksDataSource;
     // TODO private final TasksDataSource mRemoteTasksDataSource;
     Map<String, Task> mCachedTask;

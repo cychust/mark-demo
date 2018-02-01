@@ -1,4 +1,5 @@
 def support_lib_version = '27.0.2'
+def arch_version = "1.0.0"
 ext {
     android = [
             compileSdkVersion         : 26,
@@ -28,8 +29,13 @@ ext {
             //bindview
             butterknife        : 'com.jakewharton:butterknife:8.8.1',
             annotationProcessor: 'com.jakewharton:butterknife-compiler:8.8.1',
+
+            //Architeture
             room_runtime       : 'android.arch.persistence.room:runtime:1.0.0',
             room_processer     : 'android.arch.persistence.room:compiler:1.0.0',
-            guava              : 'com.google.guava:guava:18.0'
+            //lifecycle_processor: "android.arch.lifecycle:compiler:$arch_version",
+            guava              : 'com.google.guava:guava:18.0',
+            lifecycle          : "android.arch.lifecycle:extensions:$arch_version",
+            lifecycle_processor: "android.arch.lifecycle:compiler:$arch_version"
     ]
 }

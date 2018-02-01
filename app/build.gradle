@@ -40,12 +40,12 @@ dependencies {
     implementation deps.support_v4
     implementation deps.design
     implementation deps.constraint_layout
-  //  implementation deps.rxjava
-   // implementation deps.rxandroid
- //   implementation deps.retrofit
- //   implementation deps.converter_gson
-  //  implementation deps.rxjava_adapter
- //   implementation deps.logging_interceptor
+    implementation deps.rxjava
+    implementation deps.rxandroid
+    implementation deps.retrofit
+    implementation deps.converter_gson
+    implementation deps.rxjava_adapter
+    implementation deps.logging_interceptor
     implementation deps.okhttp
     implementation deps.butterknife
     annotationProcessor deps.annotationProcessor
@@ -53,4 +53,8 @@ dependencies {
     annotationProcessor deps.room_processer
     implementation deps.guava
     implementation 'com.android.support:cardview-v7:27.0.2'
+    //implementation deps.lifecycle_processor
+
+    implementation deps.lifecycle
+    annotationProcessor deps.lifecycle_processor
 }

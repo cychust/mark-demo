@@ -24,9 +24,10 @@ public class MainPresenter implements MainContract.Presenter {
     private final TasksRepository mTasksRepository;
 
     private final MainContract.View mView;
-    public MainPresenter(@NonNull TasksRepository tasksRepository, @NonNull MainContract.View view){
-        mTasksRepository=checkNotNull(tasksRepository,"taskRepository cannot be null");
-        mView=checkNotNull(view,"view cannot be null");
+
+    public MainPresenter(@NonNull TasksRepository tasksRepository, @NonNull MainContract.View view) {
+        mTasksRepository = checkNotNull(tasksRepository, "taskRepository cannot be null");
+        mView = checkNotNull(view, "view cannot be null");
         mView.setPresenter(this);
     }
 
@@ -49,13 +50,14 @@ public class MainPresenter implements MainContract.Presenter {
         });
     }
 
-    private void proccessTasks(List<Task> tasks){
-        if (tasks.isEmpty()){
+    private void proccessTasks(List<Task> tasks) {
+        if (tasks.isEmpty()) {
             Log.d("tasks", "proccessTasks: task is empty");
-        }else {
+        } else {
             mView.showTasks(tasks);
         }
     }
+
     @Override
     public void addNewTask() {
         mView.showAddTask();
@@ -69,8 +71,8 @@ public class MainPresenter implements MainContract.Presenter {
 
     @Override
     public void openTaskDetails(Task clickedTask, View view) {
-        checkNotNull(clickedTask,"clickedTask cannot be null");
-        mView.showTaskDetailUi(clickedTask.getId(),view);
+        checkNotNull(clickedTask, "clickedTask cannot be null");
+        mView.showTaskDetailUi(clickedTask.getId(), view);
     }
 
     @Override

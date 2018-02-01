@@ -1,0 +1,43 @@
+package com.cyc.markdemo.common;
+
+import com.cyc.markdemo.BaseApplication;
+import com.cyc.markdemo.Utils.ActivityUtil;
+import com.cyc.markdemo.data.Task;
+import com.cyc.markdemo.data.resource.TasksRepository;
+
+import java.io.IOException;
+import java.util.Map;
+import java.util.Set;
+
+import okhttp3.Interceptor;
+import okhttp3.Request;
+import okhttp3.Response;
+
+/**
+ * Created by cyc20 on 2018/2/1.
+ */
+
+public class BaseInterceptor implements Interceptor {
+
+    private Map<String, String> headers;
+
+    public BaseInterceptor(Map<String, String> headers) {
+        this.headers = headers;
+    }
+
+    @Override
+    public Response intercept(Chain chain) throws IOException {
+        Request.Builder builder = chain.request().newBuilder();
+        if (TasksRepository.LoginStatus == 1) {
+            String header = ActivityUtil.getSharePreferencesByKey(BaseApplication.getINSTANCE(), "mark", "Owner");
+            headers.put("Owner", header);
+        }
+        if (headers != null && headers.size() > 0) {
+            Set<String> keys = headers.keySet();
+            for (String headerKey : keys) {
+                builder.addHeader(headerKey, headers.get(headerKey)).build();
+            }
+        }
+        return chain.proceed(builder.build());
+    }
+}

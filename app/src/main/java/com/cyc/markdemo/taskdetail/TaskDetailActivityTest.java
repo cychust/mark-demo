@@ -39,7 +39,7 @@ public class TaskDetailActivityTest extends AppCompatActivity implements TaskDet
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.fragment_taskdetail_main);
+        setContentView(R.layout.fragment_taskdetail);
         mToolbar = (Toolbar) findViewById(R.id.detail_toolbar);
 
         setSupportActionBar(mToolbar);

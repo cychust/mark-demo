@@ -32,7 +32,7 @@ public class AddTaskFragment extends Fragment implements AddTaskContract.View {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_addtask_main, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_addtask, container, false);
         mTitleEditText = rootView.findViewById(R.id.title_input_edit);
         mDescriptionEditText = rootView.findViewById(R.id.description_input_edit);
         setHasOptionsMenu(true);

@@ -38,7 +38,7 @@ public class TaskDetailFragment extends Fragment implements TaskDetailContract.V
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_taskdetail_main, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_taskdetail, container, false);
         mCardView = rootView.findViewById(R.id.card_view);
         mTitleTV = mCardView.findViewById(R.id.title_tv);
         mDescriptionTV = rootView.findViewById(R.id.detail_description_tv);
